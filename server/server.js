@@ -35,6 +35,10 @@ app.listen(3000, () => {
 })
 
 
+
+module.exports = {app}
+
+
 /* var newTofu = new Tofu({
 	text: 'Edit the cat food',
     
