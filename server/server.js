@@ -26,7 +26,13 @@ app.post('/tofus', (req, res) => {
 })
 
 
-
+app.get('/tofus', (req, res) => {
+	Tofu.find().then((tofus = []) => {
+		res.send({tofus})
+	}, (e) => {
+		res.status(400).send(e)
+	})
+})
 
 
 
