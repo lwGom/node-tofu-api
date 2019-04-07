@@ -1,5 +1,6 @@
 var express = require('express')
 var bodyParser = require('body-parser')
+var {ObjectId} = require('mongodb')
 
 var {mongoose} = require('./db/mongoose')
 var {Tofu} = require('./models/tofu') 
@@ -33,6 +34,27 @@ app.get('/tofus', (req, res) => {
 		res.status(400).send(e)
 	})
 })
+
+
+// get /tofus/234567890
+
+app.get('/tofus/:id', (req, res) => {
+	var id = req.params.id
+	
+	if(!ObjectId.isValid(id)){
+		return res.status(404).send()
+	}
+
+	Tofu.findById(id).then((tofu) => {
+		if(!tofu){
+			return res.status(404).send()
+		}
+		
+		res.send({tofu})
+
+	}).catch((e) => res.status(400).send())
+})
+
 
 
 
